@@ -2,7 +2,10 @@
 
 namespace App\Exceptions;
 
+use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -41,8 +44,42 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
+        $this->renderable(function (NotFoundHttpException $exception, $request) {
+            if ($request->is('v1/*')) {
+                return response()->json([
+                    'code' => 404,
+                    'status' => false,
+                    'msg' => $exception->getMessage(),
+                    'error' => 1
+                ], 404);
+            }
+        });
+
+        $this->renderable(function (HttpException $exception, $request) {
+            if ($request->is('v1/*')) {
+                return response()->json([
+                    'code' => $exception->getstatusCode(),
+                    'status' => false,
+                    'msg' => $exception->getMessage(),
+                    'error' => 1,
+                    'error_detail' => [
+                        'code' => $exception->getStatusCode(),
+                        'headers' => $exception->getHeaders(),
+                        'line' => $exception->getLine(),
+                    ]
+                ], $exception->getstatusCode());
+            }
+        });
+
+        $this->renderable(function (Exception $exception, $request) {
+            if ($request->is('v1/*')) {
+                return response()->json([
+                    'code' => 400,
+                    'status' => false,
+                    'msg' => $exception->getMessage(),
+                    'error' => 1
+                ], 400);
+            }
         });
     }
 }

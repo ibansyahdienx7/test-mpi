@@ -219,7 +219,7 @@ trait MyHelper
 
     public function timeAgo($timestamp)
     {
-        $translate = new GoogleTranslate();
+        // $translate = new GoogleTranslate();
         $time_ago = strtotime($timestamp);
         $current_time = time();
         $time_difference = $current_time - $time_ago;
@@ -233,92 +233,98 @@ trait MyHelper
 
         if ($seconds <= 60) {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $sekarang = 'Sekarang';
-            else :
-                $sekarang = $translate->setTarget('en')->translate('Sekarang');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $sekarang = 'Sekarang';
+            // else :
+            //     $sekarang = $translate->setTarget('en')->translate('Sekarang');
+            // endif;
 
-            return $sekarang;
+            return 'Now';
         } else if ($minutes <= 60) {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $menit = 'Menit lalu';
-            else :
-                $menit = $translate->setTarget('en')->translate('Menit lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $menit = 'Menit lalu';
+            // else :
+            //     $menit = $translate->setTarget('en')->translate('Menit lalu');
+            // endif;
+
+            // if ($minutes == 1) {
+            //     return "1 " . $menit;
+            // } else {
+            //     return "$minutes " . $menit;
+            // }
 
             if ($minutes == 1) {
-                return "1 " . $menit;
+                return "1 Minute Ago";
             } else {
-                return "$minutes " . $menit;
+                return "$minutes Minute Ago";
             }
         } else if ($hours <= 24) {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $jam = 'Jam lalu';
-            else :
-                $jam = $translate->setTarget('en')->translate('Jam lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $jam = 'Jam lalu';
+            // else :
+            //     $jam = $translate->setTarget('en')->translate('Jam lalu');
+            // endif;
 
             if ($hours == 1) {
-                return "1 " . $jam;
+                return "1 Hour Ago";
             } else {
-                return "$hours " . $jam;
+                return "$hours Ago";
             }
         } else if ($days <= 7) {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $Kemarin = 'Kemarin';
-                $hariLalu = 'Hari lalu';
-            else :
-                $Kemarin = $translate->setTarget('en')->translate('Kemarin');
-                $hariLalu = $translate->setTarget('en')->translate('Hari lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $Kemarin = 'Kemarin';
+            //     $hariLalu = 'Hari lalu';
+            // else :
+            //     $Kemarin = $translate->setTarget('en')->translate('Kemarin');
+            //     $hariLalu = $translate->setTarget('en')->translate('Hari lalu');
+            // endif;
 
             if ($days == 1) {
-                return $Kemarin;
+                return 'Yesterday';
             } else {
-                return "$days " . $hariLalu;
+                return "$days Yesterday Ago";
             }
         } else if ($weeks <= 4.3) {  //4.3 == 52/12
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $mingguLalu = 'Minggu lalu';
-            else :
-                $mingguLalu = $translate->setTarget('en')->translate('Minggu lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $mingguLalu = 'Minggu lalu';
+            // else :
+            //     $mingguLalu = $translate->setTarget('en')->translate('Minggu lalu');
+            // endif;
 
             if ($weeks == 1) {
-                return "1 " . $mingguLalu;
+                return "1 Week Ago";
             } else {
-                return "$weeks " . $mingguLalu;
+                return "$weeks Week Ago";
             }
         } else if ($months <= 12) {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $bulanLalu = 'Bulan lalu';
-            else :
-                $bulanLalu = $translate->setTarget('en')->translate('Bulan lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $bulanLalu = 'Bulan lalu';
+            // else :
+            //     $bulanLalu = $translate->setTarget('en')->translate('Bulan lalu');
+            // endif;
 
             if ($months == 1) {
-                return "1 " . $bulanLalu;
+                return "1 Month Ago";
             } else {
-                return "$months " . $bulanLalu;
+                return "$months Month Ago";
             }
         } else {
 
-            if (str_replace('_', '-', app()->getLocale()) == 'id') :
-                $tahunLalu = 'Tahun lalu';
-            else :
-                $tahunLalu = $translate->setTarget('en')->translate('Tahun lalu');
-            endif;
+            // if (str_replace('_', '-', app()->getLocale()) == 'id') :
+            //     $tahunLalu = 'Tahun lalu';
+            // else :
+            //     $tahunLalu = $translate->setTarget('en')->translate('Tahun lalu');
+            // endif;
 
             if ($years == 1) {
-                return "1 " . $tahunLalu;
+                return "1 Year Ago";
             } else {
-                return "$years " . $tahunLalu;
+                return "$years Year Ago";
             }
         }
     }
@@ -500,5 +506,27 @@ trait MyHelper
         }
 
         return $hari_ini;
+    }
+
+    public function paymentMethod($index = null)
+    {
+        $akses = [
+            'dev_gopay'         => 'https://api.sandbox.midtrans.com/v2/pay/account',
+            'gopay'             => 'https://api.midtrans.com/v2/pay/account',
+            'api_midtrans'      => 'https://api.sandbox.midtrans.com/v2/SANDBOX-G710367688-806/status',
+
+            // MIDTRANS DEV //
+            'merchant_id_dev'       => 'G999254647',
+            'client_key_dev'        => 'SB-Mid-client-k_vHKYW54cAj72A3',
+            'server_key_dev'        => 'SB-Mid-server-gcJ3ca8r4uOsARFbjHQXWUDJ',
+
+            // MIDTRANS PROD //
+            'merchant_id'       => 'G999254647',
+            'client_key'        => 'Mid-client-UhI-EECfH32KNtDE',
+            'server_key'        => 'Mid-server-60zB11NvhmhOKECVkUpN5p_L',
+
+        ];
+
+        return $akses[$index];
     }
 }
