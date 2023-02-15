@@ -5,19 +5,33 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^8.1",
+        "php": "^8.0.2",
+        "bacon/bacon-qr-code": "^2.0",
+        "doctrine/dbal": "^3.4",
+        "dymantic/laravel-instagram-feed": "^3.2",
+        "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
+        "illuminate/support": "^9.40",
         "inertiajs/inertia-laravel": "^0.6.3",
+        "intervention/image": "dev-master",
+        "jenssegers/agent": "^2.6",
+        "joggapp/laravel-google-translate": "^8.1",
         "josiasmontag/laravel-recaptchav3": "^1.0",
-        "laravel/framework": "^10.0",
+        "laravel/framework": "^9.19",
+        "laravel/jetstream": "^2.12",
         "laravel/sanctum": "^3.2",
         "laravel/socialite": "^5.5",
-        "laravel/tinker": "^2.8",
-        "midtrans/midtrans-php": "^2.5",
-        "simplesoftwareio/simple-qrcode": "~4",
+        "laravel/tinker": "^2.7",
+        "laravel/ui": "^4.0",
+        "laraveldaily/laravel-charts": "^0.1.29",
+        "livewire/livewire": "^2.5",
+        "maatwebsite/excel": "^3.1",
+        "pragmarx/google2fa-laravel": "^2.0",
+        "psr/simple-cache": "2.0",
         "spatie/laravel-cookie-consent": "^3.2",
         "stichoza/google-translate-php": "^4.1",
-        "tightenco/ziggy": "^1.0"
+        "tightenco/ziggy": "^1.0",
+        "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
@@ -27,8 +41,7 @@
         "mockery/mockery": "^1.4.4",
         "nunomaduro/collision": "^6.4",
         "pestphp/pest": "^1.22",
-        "pestphp/pest-plugin-laravel": "^1.2",
-        "spatie/laravel-ignition": "^2.0"
+        "pestphp/pest-plugin-laravel": "^1.2"
     },
     "autoload": {
         "psr-4": {

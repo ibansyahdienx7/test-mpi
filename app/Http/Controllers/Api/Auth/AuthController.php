@@ -106,6 +106,41 @@ class AuthController extends Controller
 
         try {
             $name = Str::upper(request()->name);
+            $email = Str::lower(request()->email);
+            $password = request()->password;
+            $pzn = $this->encryptPin($password);
+            $slug = Str::replace(" ", "_", Str::lower(request()->name));
+            $role = 'user';
+
+            if (!preg_match("/^[a-zA-Z0-9]*$/", $password)) {
+                return response()->json([
+                    'code' => 400,
+                    'status' => false,
+                    'msg' => 'Password must contain capital letters, numbers, characters',
+                    'error' => 1
+                ], 400);
+            }
+
+            if (!preg_match("/^[a-zA-Z]*$/", $name)) {
+                return response()->json([
+                    'code' => 400,
+                    'status' => false,
+                    'msg' => 'Input only letters are allowed',
+                    'error' => 1
+                ], 400);
+            }
+
+
+            $check = User::where('email', $email)->orWhere('slug', $slug)->first();
+            if ($check) {
+                return response()->json([
+                    'code' => 419,
+                    'status' => false,
+                    'msg' => 'Oopss... Data is available',
+                    'data' => $check,
+                    'error' => 1
+                ], 400);
+            }
         } catch (HttpException $exception) {
             return response()->json([
                 'code' => $exception->getstatusCode(),

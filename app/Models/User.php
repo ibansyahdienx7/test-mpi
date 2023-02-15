@@ -26,6 +26,8 @@ class User extends Authenticatable
         'is_login',
         'login_at',
         'pzn',
+        'status',
+        'slug'
     ];
 
     /**
