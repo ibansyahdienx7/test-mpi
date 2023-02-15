@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('is_login');
             $table->timestamp('login_at')->nullable();
             $table->string('pzn');
+            $table->integer('status');
             $table->rememberToken();
             $table->nullableTimestamps();
         });
