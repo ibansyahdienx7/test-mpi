@@ -21,6 +21,12 @@ class SentsAdminMail extends Mailable
 
     public function build()
     {
-        return $this->subject($this->data['subject'])->view('mails.sendmail');
+        if ($this->data['title_mail'] == 'regist') {
+            return $this->subject($this->data['subject'])->view('mails.authmailer');
+        } else if ($this->data['title_mail'] == 'verify') {
+            return $this->subject($this->data['subject'])->view('mails.authmailer');
+        } else {
+            return $this->subject($this->data['subject'])->view('mails.sendmail');
+        }
     }
 }

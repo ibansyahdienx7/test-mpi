@@ -157,6 +157,7 @@ return [
     */
 
     // config other //
+    'brand'         => 'Olshop Ibansyah',
     'key_recaptcha' => '6Lfq-VMkAAAAAN8ROG2Sum0MrLzNUueoCvDX_95t',
     'key_secret_cp' => '6Lfq-VMkAAAAAPM1bpLouOPPkc0m9MW_VArocEYL',
     'year_company'  => '2022',
@@ -197,7 +198,7 @@ return [
     'brand_name'    => 'Iban Syahdien Akbar',
     'slogan'        => '',
 
-    'url_olshop'    => 'http://127.0.0.1:3000',
+    'url_olshop'    => 'http://127.0.0.1:8000',
     'twitter'       => '',
     'facebook'      => '',
     'instagram'     => 'https://www.instagram.com/ibansyah_/',
