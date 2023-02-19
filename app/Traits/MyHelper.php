@@ -12,7 +12,13 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Api\Ayopos\TotalPos;
 use Illuminate\Support\Facades\Http;
 use App\Models\Api\Ayopos\MerchantPos;
+use App\Models\Api\Category;
+use App\Models\Api\Product;
+use App\Models\Api\Store;
+use App\Models\User;
 use Stichoza\GoogleTranslate\GoogleTranslate;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File as FacadesFile;
 
 trait MyHelper
 {
@@ -528,5 +534,223 @@ trait MyHelper
         ];
 
         return $akses[$index];
+    }
+
+    function uploadPhoto($img64, $id = null, $directory, $type = null)
+    {
+        if ($id == null) {
+            // Obtain the original content (usually binary data)
+            $bin = base64_decode($img64);
+            $decoded = base64_decode($img64, true);
+
+            // image verify check
+            if (!is_string($img64) || false === $decoded) {
+                return false;
+            }
+
+            // Load GD resource from binary data
+            $im = imageCreateFromString($bin);
+
+            if (!$im) {
+                return false;
+            }
+
+            // Specify the location where you want to save the image
+            $img_name = Str::random(6) . '-' . time() . '.png';
+            if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                $path = public_path('assets/upload/' . $directory);
+                FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+            }
+            $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+            imagepng($im, $img_file, 0);
+            $photo = url('assets/upload/' . $directory . '/' . $img_name);
+
+            return $photo;
+        } else {
+
+            if ($directory == 'user') {
+
+                $photo = User::where('email', $id)->first();
+
+                // Obtain the original content (usually binary data)
+                $bin = base64_decode($img64);
+                $decoded = base64_decode($img64, true);
+
+                // image verify check
+                if (!is_string($img64) || false === $decoded) {
+                    return false;
+                }
+
+                // Load GD resource from binary data
+                $im = imageCreateFromString($bin);
+
+                if (!$im) {
+                    return false;
+                }
+                $current_photo = $photo->profile_photo_path;
+                $current_photo = explode(url('') . '/', $current_photo);
+                $current_photo = end($current_photo);
+
+                if ($photo->profile_photo_path) {
+                    // hapus gambar lama
+                    if (file_exists(public_path($current_photo)) == true) {
+                        unlink($current_photo);
+                    }
+                }
+
+                // Specify the location where you want to save the image
+                $img_name = Str::random(6) . '-' . time() . '.png';
+                if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                    $path = public_path('assets/upload/' . $directory);
+                    FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+                imagepng($im, $img_file, 0);
+                $photo = url('assets/upload/' . $directory . '/' . $img_name);
+            } else if ($directory == 'category') {
+
+                $photo = Category::where('id', $id)->first();
+
+                // Obtain the original content (usually binary data)
+                $bin = base64_decode($img64);
+                $decoded = base64_decode($img64, true);
+
+                // image verify check
+                if (!is_string($img64) || false === $decoded) {
+                    return false;
+                }
+
+                // Load GD resource from binary data
+                $im = imageCreateFromString($bin);
+
+                if (!$im) {
+                    return false;
+                }
+                $current_photo = $photo->icon;
+                $current_photo = explode(url('') . '/', $current_photo);
+                $current_photo = end($current_photo);
+
+                if ($photo->icon) {
+                    // hapus gambar lama
+                    if (file_exists(public_path($current_photo)) == true) {
+                        unlink($current_photo);
+                    }
+                }
+
+                // Specify the location where you want to save the image
+                $img_name = Str::random(6) . '-' . time() . '.png';
+                if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                    $path = public_path('assets/upload/' . $directory);
+                    FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+                imagepng($im, $img_file, 0);
+                $photo = url('assets/upload/' . $directory . '/' . $img_name);
+            } else if ($directory == 'store') {
+
+                $photo = Store::where('id', $id)->first();
+
+                // Obtain the original content (usually binary data)
+                $bin = base64_decode($img64);
+                $decoded = base64_decode($img64, true);
+
+                // image verify check
+                if (!is_string($img64) || false === $decoded) {
+                    return false;
+                }
+
+                // Load GD resource from binary data
+                $im = imageCreateFromString($bin);
+
+                if (!$im) {
+                    return false;
+                }
+                $current_photo = $photo->photo;
+                $current_photo = explode(url('') . '/', $current_photo);
+                $current_photo = end($current_photo);
+
+                if ($photo->photo) {
+                    // hapus gambar lama
+                    if (file_exists(public_path($current_photo)) == true) {
+                        unlink($current_photo);
+                    }
+                }
+
+                // Specify the location where you want to save the image
+                $img_name = Str::random(6) . '-' . time() . '.png';
+                if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                    $path = public_path('assets/upload/' . $directory);
+                    FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+                imagepng($im, $img_file, 0);
+                $photo = url('assets/upload/' . $directory . '/' . $img_name);
+            } else if ($directory == 'product') {
+
+                $photo = Product::where('id', $id)->first();
+
+                // Obtain the original content (usually binary data)
+                $bin = base64_decode($img64);
+                $decoded = base64_decode($img64, true);
+
+                // image verify check
+                if (!is_string($img64) || false === $decoded) {
+                    return false;
+                }
+
+                // Load GD resource from binary data
+                $im = imageCreateFromString($bin);
+
+                if (!$im) {
+                    return false;
+                }
+
+
+                if ($type == 'master_photo') {
+                    $current_photo = $photo->photo;
+                    $current_photo = explode(url('') . '/', $current_photo);
+                    $current_photo = end($current_photo);
+                } else if ($type == 'second_photo') {
+                    $current_photo = $photo->second_photo;
+                    $current_photo = explode(url('') . '/', $current_photo);
+                    $current_photo = end($current_photo);
+                } else if ($type == 'third_photo') {
+                    $current_photo = $photo->third_photo;
+                    $current_photo = explode(url('') . '/', $current_photo);
+                    $current_photo = end($current_photo);
+                }
+
+                if ($photo->photo) {
+                    // hapus gambar lama
+                    if (file_exists(public_path($current_photo)) == true) {
+                        unlink($current_photo);
+                    }
+                }
+
+                // Specify the location where you want to save the image
+                $img_name = Str::random(6) . '-' . time() . '.png';
+                if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                    $path = public_path('assets/upload/' . $directory);
+                    FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+                imagepng($im, $img_file, 0);
+                $photo = url('assets/upload/' . $directory . '/' . $img_name);
+            }
+            return $photo;
+        }
+    }
+
+    function deletePhoto($current_photo)
+    {
+        $current_photo = explode(url('') . '/', $current_photo);
+        $current_photo = end($current_photo);
+
+        if ($current_photo !== 'assets/img/noimg.png') {
+            // hapus gambar lama
+            if (file_exists(public_path($current_photo)) == true) {
+                unlink($current_photo);
+            }
+        }
     }
 }

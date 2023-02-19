@@ -15,15 +15,18 @@ return new class extends Migration
             $table->id();
             $table->integer('id_store');
             $table->integer('id_category');
-            $table->integer('id_sub_category');
             $table->string('name');
             $table->integer('stocks');
             $table->string('photo');
+            $table->string('second_photo')->nullable();
+            $table->string('third_photo')->nullable();
             $table->integer('price');
             $table->integer('discount');
             $table->integer('real_price');
+            $table->integer('size')->comment('1 or 0');
+            $table->integer('variant')->comment('1 or 0');
             $table->string('slug');
-            $table->integer('status');
+            $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
             $table->nullableTimestamps();
         });
     }

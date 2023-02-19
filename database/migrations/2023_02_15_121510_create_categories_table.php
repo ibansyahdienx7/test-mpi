@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('icon');
-            $table->integer('status');
+            $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
             $table->nullableTimestamps();
         });
     }

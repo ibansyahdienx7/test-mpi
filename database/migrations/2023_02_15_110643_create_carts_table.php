@@ -17,6 +17,8 @@ return new class extends Migration
             $table->integer('id_product');
             $table->integer('amount_product');
             $table->integer('total_product');
+            $table->string('size')->nullable();
+            $table->string('variant')->nullable();
             $table->nullableTimestamps();
         });
     }

@@ -8,24 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('password_resets', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_product');
-            $table->string('name');
-            $table->integer('rate');
-            $table->text('review');
+            $table->string('email');
+            $table->string('token');
             $table->nullableTimestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('password_resets');
     }
 };

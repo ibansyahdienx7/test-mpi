@@ -8,15 +8,19 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('stores', function (Blueprint $table) {
+        Schema::create('promos', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
             $table->string('name');
+            $table->string('subject');
+            $table->text('description');
             $table->string('photo');
-            $table->string('slug');
+            $table->integer('id_product');
+            $table->timestamp('expired_at');
             $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
             $table->nullableTimestamps();
         });
@@ -24,9 +28,11 @@ return new class extends Migration
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('stores');
+        Schema::dropIfExists('promos');
     }
 };

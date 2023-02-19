@@ -71,5 +71,25 @@ class Handler extends ExceptionHandler
                 ], $exception->getstatusCode());
             }
         });
+
+        $this->renderable(function (Exception $exception, $request) {
+            if ($request->is('v1/*')) {
+                return response()->json([
+                    'code' => 500,
+                    'status' => false,
+                    'msg' => $exception->getMessage(),
+                    'error' => 1,
+                    'error_detail' => $exception->getFile()
+                ], 500);
+            } else {
+                return response()->json([
+                    'code' => 500,
+                    'status' => false,
+                    'msg' => $exception->getMessage(),
+                    'error' => 1,
+                    'error_detail' => $exception->getFile()
+                ], 500);
+            }
+        });
     }
 }

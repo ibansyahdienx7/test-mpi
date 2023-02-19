@@ -5,10 +5,10 @@ namespace App\Models\Api;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SubCategory extends Model
+class Subscribe extends Model
 {
     use HasFactory;
 
-    protected $table = 'sub_categories';
+    protected $table = 'subscribes';
     protected $guarded = ['id'];
 }

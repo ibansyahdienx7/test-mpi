@@ -8,7 +8,7 @@
             {{ $data['title'] }}
         </h4>
         <p style="text-align:left; color: #000; font-size:16px">
-            <strong>{{ $data['deskripsi'] }}</strong>
+            {{ $data['deskripsi'] }}
         </p>
         @if ($data['role'] == 'user' && $data['title_mail'] == 'regist')
         <hr />
@@ -20,6 +20,18 @@
             </center>
         </p>
         @endif
+
+        @if ($data['role'] == 'user' && $data['title_mail'] == 'forgot')
+        <hr />
+        <p style="color: #000 !important; text-align:left; font-size:16px">
+            <center>
+                <a href="{{ config('app.url_olshop') }}/reset/{{ $data['token'] }}" class="btn-custom" target="_blank">
+                    Reset Password
+                </a>
+            </center>
+        </p>
+        @endif
+
         <br />
 
         <div style='margin-top: 10px'>

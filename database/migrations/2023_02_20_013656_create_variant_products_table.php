@@ -8,25 +8,26 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
+     *
+     * @return void
      */
-    public function up(): void
+    public function up()
     {
-        Schema::create('invoices', function (Blueprint $table) {
+        Schema::create('variant_products', function (Blueprint $table) {
             $table->id();
-            $table->string('no_inv');
-            $table->integer('user_id');
-            $table->integer('id_transaction');
             $table->integer('id_product');
-            $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
+            $table->string('variant');
             $table->nullableTimestamps();
         });
     }
 
     /**
      * Reverse the migrations.
+     *
+     * @return void
      */
-    public function down(): void
+    public function down()
     {
-        Schema::dropIfExists('invoices');
+        Schema::dropIfExists('variant_products');
     }
 };
