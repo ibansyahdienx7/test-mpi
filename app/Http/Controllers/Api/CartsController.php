@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Api\Cart;
 use App\Models\Api\Product;
+use App\Models\Api\Store;
 use App\Traits\MyHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -144,6 +145,25 @@ class CartsController extends Controller
                     'msg' => 'Product not found',
                     'error' => 1
                 ], 404);
+            }
+
+            $store = Store::where('id', $product->id_store)->first();
+            if (empty($store)) {
+                return response()->json([
+                    'code' => 404,
+                    'status' => false,
+                    'msg' => 'Store not found',
+                    'error' => 1
+                ], 404);
+            }
+
+            if ($user_id == $store->user_id) {
+                return response()->json([
+                    'code' => 417,
+                    'status' => false,
+                    'msg' => 'You cannot add a cart to your own shop',
+                    'error' => 1
+                ], 417);
             }
 
             $cart = Cart::create([

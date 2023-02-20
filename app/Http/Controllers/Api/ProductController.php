@@ -206,7 +206,7 @@ class ProductController extends Controller
         }
     }
 
-    function listByID($id)
+    function listBySlug($slug)
     {
         try {
             $Product = Product::select(
@@ -223,6 +223,7 @@ class ProductController extends Controller
                 'products.third_photo',
                 'products.price',
                 'products.discount',
+                'products.slug as slug_product',
                 'products.size as status_size',
                 'size_products.size',
                 'products.variant as status_variant',
@@ -239,7 +240,7 @@ class ProductController extends Controller
                 ->leftJoin('variant_products', 'products.id', '=', 'variant_products.id_product')
                 ->leftJoin('categories', 'products.id_category', '=', 'categories.id')
                 ->leftJoin('reviews', 'products.id', '=', 'reviews.id_product')
-                ->where('products.id', $id)
+                ->where('products.slug', $slug)
                 ->where('products.stocks', '>', 0)
                 ->where('products.status', 10)
                 ->groupBy(
@@ -256,6 +257,7 @@ class ProductController extends Controller
                     'products.third_photo',
                     'products.price',
                     'products.discount',
+                    'products.slug',
                     'products.size',
                     'size_products.size',
                     'products.variant',

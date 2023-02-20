@@ -68,7 +68,7 @@ Route::prefix('store')->group(function () {
 Route::prefix('product')->group(function () {
     Route::get('list', [ProductController::class, 'list']);
     Route::get('list/{id_user}', [ProductController::class, 'list']);
-    Route::get('{id}', [ProductController::class, 'listByID']);
+    Route::get('{slug}', [ProductController::class, 'listBySlug']);
     Route::get('list-store/{slug}', [ProductController::class, 'listByToko']);
     Route::post('store', [ProductController::class, 'store']);
     Route::post('update', [ProductController::class, 'update']);
