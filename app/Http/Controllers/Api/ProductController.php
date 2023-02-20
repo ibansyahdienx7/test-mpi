@@ -50,6 +50,9 @@ class ProductController extends Controller
                     'products.real_price',
                     'products.slug',
                     'products.status',
+                    'product_details.tag as tag_product',
+                    'product_details.note as note_product',
+                    'product_details.description as description_product',
                     'products.created_at as product_created_at',
                     'products.updated_at as product_updated_at',
                     'reviews.rate as rate_product',
@@ -57,6 +60,7 @@ class ProductController extends Controller
                     ->leftJoin('size_products', 'products.id', '=', 'size_products.id_product')
                     ->leftJoin('stores', 'products.id_store', '=', 'stores.id')
                     ->leftJoin('variant_products', 'products.id', '=', 'variant_products.id_product')
+                    ->leftJoin('product_details', 'products.id', '=', 'product_details.id_product')
                     ->leftJoin('categories', 'products.id_category', '=', 'categories.id')
                     ->leftJoin('reviews', 'products.id', '=', 'reviews.id_product')
                     ->whereNotIn('stores.user_id', [$id_user])
@@ -85,6 +89,9 @@ class ProductController extends Controller
                         'products.real_price',
                         'products.slug',
                         'products.status',
+                        'product_details.tag',
+                        'product_details.note',
+                        'product_details.description',
                         'products.created_at',
                         'products.updated_at',
                         'reviews.rate',
@@ -123,6 +130,9 @@ class ProductController extends Controller
                     'products.real_price',
                     'products.slug',
                     'products.status',
+                    'product_details.tag as tag_product',
+                    'product_details.note as note_product',
+                    'product_details.description as description_product',
                     'products.created_at as product_created_at',
                     'products.updated_at as product_updated_at',
                     'reviews.rate as rate_product',
@@ -130,6 +140,7 @@ class ProductController extends Controller
                     ->leftJoin('size_products', 'products.id', '=', 'size_products.id_product')
                     ->leftJoin('stores', 'products.id_store', '=', 'stores.id')
                     ->leftJoin('variant_products', 'products.id', '=', 'variant_products.id_product')
+                    ->leftJoin('product_details', 'products.id', '=', 'product_details.id_product')
                     ->leftJoin('categories', 'products.id_category', '=', 'categories.id')
                     ->leftJoin('reviews', 'products.id', '=', 'reviews.id_product')
                     ->where('products.status', 10)
@@ -157,6 +168,9 @@ class ProductController extends Controller
                         'products.real_price',
                         'products.slug',
                         'products.status',
+                        'product_details.tag',
+                        'product_details.note',
+                        'product_details.description',
                         'products.created_at',
                         'products.updated_at',
                         'reviews.rate',
@@ -176,7 +190,8 @@ class ProductController extends Controller
             foreach ($Product as $p) {
                 $review = Review::where('id_product', $p->id_product)->first();
                 if ($review) {
-                    if (count($review) > 5) {
+                    $reviews = Review::where('id_product', $p->id_product)->get();
+                    if (count($reviews) > 5) {
                         $total_rate = $review->rate / 5;
                     } else {
                         $total_rate = $review->rate;
@@ -221,6 +236,7 @@ class ProductController extends Controller
                 'stores.user_id as id_user',
                 'stores.id as id_store',
                 'stores.photo as photo_store',
+                'stores.name as name_store',
                 'stores.slug as slug_store',
                 'products.id as id_product',
                 'categories.name',
@@ -233,6 +249,7 @@ class ProductController extends Controller
                 'products.third_photo',
                 'products.price',
                 'products.discount',
+                'products.status as status_product',
                 'products.slug as slug_product',
                 'products.size as status_size',
                 'size_products.size',
@@ -241,6 +258,9 @@ class ProductController extends Controller
                 'products.real_price',
                 'products.slug',
                 'products.status',
+                'product_details.tag as tag_product',
+                'product_details.note as note_product',
+                'product_details.description as description_product',
                 'products.created_at as product_created_at',
                 'products.updated_at as product_updated_at',
                 'reviews.rate as rate_product',
@@ -248,6 +268,7 @@ class ProductController extends Controller
                 ->leftJoin('size_products', 'products.id', '=', 'size_products.id_product')
                 ->leftJoin('stores', 'products.id_store', '=', 'stores.id')
                 ->leftJoin('variant_products', 'products.id', '=', 'variant_products.id_product')
+                ->leftJoin('product_details', 'products.id', '=', 'product_details.id_product')
                 ->leftJoin('categories', 'products.id_category', '=', 'categories.id')
                 ->leftJoin('reviews', 'products.id', '=', 'reviews.id_product')
                 ->where('products.slug', $slug)
@@ -257,6 +278,7 @@ class ProductController extends Controller
                     'stores.user_id',
                     'stores.id',
                     'stores.photo',
+                    'stores.name',
                     'stores.slug',
                     'products.id',
                     'categories.name',
@@ -269,6 +291,7 @@ class ProductController extends Controller
                     'products.third_photo',
                     'products.price',
                     'products.discount',
+                    'products.status',
                     'products.slug',
                     'products.size',
                     'size_products.size',
@@ -277,12 +300,15 @@ class ProductController extends Controller
                     'products.real_price',
                     'products.slug',
                     'products.status',
+                    'product_details.tag',
+                    'product_details.note',
+                    'product_details.description',
                     'products.created_at',
                     'products.updated_at',
                     'reviews.rate',
                 )
                 ->first();
-            if ($Product->status == 0) {
+            if ($Product->status_product == 0) {
                 return response()->json([
                     'code' => 417,
                     'status' => false,
@@ -371,6 +397,9 @@ class ProductController extends Controller
                 'products.real_price',
                 'products.slug',
                 'products.status',
+                'product_details.tag as tag_product',
+                'product_details.note as note_product',
+                'product_details.description as description_product',
                 'products.created_at as product_created_at',
                 'products.updated_at as product_updated_at',
                 'reviews.rate as rate_product',
@@ -378,6 +407,7 @@ class ProductController extends Controller
                 ->leftJoin('size_products', 'products.id', '=', 'size_products.id_product')
                 ->leftJoin('stores', 'products.id_store', '=', 'stores.id')
                 ->leftJoin('variant_products', 'products.id', '=', 'variant_products.id_product')
+                ->leftJoin('product_details', 'products.id', '=', 'product_details.id_product')
                 ->leftJoin('categories', 'products.id_category', '=', 'categories.id')
                 ->leftJoin('reviews', 'products.id', '=', 'reviews.id_product')
                 ->where('stores.slug', $slug)
@@ -406,6 +436,9 @@ class ProductController extends Controller
                     'products.real_price',
                     'products.slug',
                     'products.status',
+                    'product_details.tag',
+                    'product_details.note',
+                    'product_details.description',
                     'products.created_at',
                     'products.updated_at',
                     'reviews.rate',
@@ -425,7 +458,8 @@ class ProductController extends Controller
             foreach ($Product as $p) {
                 $review = Review::where('id_product', $p->id_product)->first();
                 if ($review) {
-                    if (count($review) > 5) {
+                    $reviews = Review::where('id_product', $p->id_product)->get();
+                    if (count($reviews) > 5) {
                         $total_rate = $review->rate / 5;
                     } else {
                         $total_rate = $review->rate;

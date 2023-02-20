@@ -11,4 +11,14 @@ class Review extends Model
 
     protected $table = 'reviews';
     protected $guared = ['id'];
+
+    protected $fillable = [
+        'user_id',
+        'id_product',
+        'rate',
+        'name',
+        'review',
+        'created_at',
+        'updated_at',
+    ];
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\CartsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\StoreController;
 use App\Http\Controllers\Api\SubscribeController;
 use App\Http\Controllers\Api\WishlistController;
@@ -116,3 +117,11 @@ Route::prefix('payment')->group(function () {
     Route::post('delete', [PaymentMethodController::class, 'delete']);
 });
 /* ====================================================== END PAYMENT METHOD ==================================================== */
+
+/* ====================================================== REVIEW ==================================================== */
+Route::prefix('review')->group(function () {
+    Route::get('list', [ReviewController::class, 'list']);
+    Route::post('store', [ReviewController::class, 'store']);
+    Route::post('delete', [ReviewController::class, 'delete']);
+});
+/* ====================================================== END REVIEW ==================================================== */

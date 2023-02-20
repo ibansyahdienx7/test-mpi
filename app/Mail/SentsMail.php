@@ -31,6 +31,8 @@ class SentsMail extends Mailable
             return $this->subject($this->data['subject'])->view('mails.sendmail');
         } else if ($this->data['title_mail'] == 'subscribe') {
             return $this->subject($this->data['subject'])->view('mails.sentmailsubs');
+        } else if ($this->data['title_mail'] == 'review') {
+            return $this->subject($this->data['subject'])->view('mails.sendmail_review');
         }
     }
 }
