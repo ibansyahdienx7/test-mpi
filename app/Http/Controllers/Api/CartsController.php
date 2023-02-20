@@ -22,6 +22,7 @@ class CartsController extends Controller
             $Cart = Cart::select(
                 'carts.id as id_cart',
                 'users.name',
+                'products.id as id_product',
                 'products.name',
                 'categories.name',
                 'carts.amount_product',
@@ -52,6 +53,7 @@ class CartsController extends Controller
                 ->groupBy(
                     'carts.id',
                     'users.name',
+                    'products.id',
                     'products.name',
                     'categories.name',
                     'carts.amount_product',
