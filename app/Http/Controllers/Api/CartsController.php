@@ -128,12 +128,12 @@ class CartsController extends Controller
             $check = Cart::where('user_id', $user_id)->where('id_product', $id_product)->first();
             if ($check) {
                 return response()->json([
-                    'code' => 419,
+                    'code' => 409,
                     'status' => false,
                     'msg' => 'Cart is available',
                     'data' => $check,
                     'error' => 1
-                ], 419);
+                ], 409);
             }
 
             $product = Product::where('id', $id_product)->first();

@@ -13,6 +13,7 @@ use App\Models\Api\Ayopos\TotalPos;
 use Illuminate\Support\Facades\Http;
 use App\Models\Api\Ayopos\MerchantPos;
 use App\Models\Api\Category;
+use App\Models\Api\PaymentMethod;
 use App\Models\Api\Product;
 use App\Models\Api\Store;
 use App\Models\User;
@@ -719,6 +720,45 @@ trait MyHelper
                     $current_photo = explode(url('') . '/', $current_photo);
                     $current_photo = end($current_photo);
                 }
+
+                if ($photo->photo) {
+                    // hapus gambar lama
+                    if (file_exists(public_path($current_photo)) == true) {
+                        unlink($current_photo);
+                    }
+                }
+
+                // Specify the location where you want to save the image
+                $img_name = Str::random(6) . '-' . time() . '.png';
+                if (is_dir(public_path('assets/upload/' . $directory)) == false) {
+                    $path = public_path('assets/upload/' . $directory);
+                    FacadesFile::makeDirectory($path, $mode = 0777, true, true);
+                }
+                $img_file = public_path('assets/upload/' . $directory . '/' . $img_name);
+                imagepng($im, $img_file, 0);
+                $photo = url('assets/upload/' . $directory . '/' . $img_name);
+            } else if ($directory == 'payment_method') {
+
+                $photo = PaymentMethod::where('id', $id)->first();
+
+                // Obtain the original content (usually binary data)
+                $bin = base64_decode($img64);
+                $decoded = base64_decode($img64, true);
+
+                // image verify check
+                if (!is_string($img64) || false === $decoded) {
+                    return false;
+                }
+
+                // Load GD resource from binary data
+                $im = imageCreateFromString($bin);
+
+                if (!$im) {
+                    return false;
+                }
+                $current_photo = $photo->photo;
+                $current_photo = explode(url('') . '/', $current_photo);
+                $current_photo = end($current_photo);
 
                 if ($photo->photo) {
                     // hapus gambar lama

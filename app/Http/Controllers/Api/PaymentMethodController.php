@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Api\Category;
+use App\Models\Api\PaymentMethod;
 use App\Traits\MyHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Support\Str;
 
-class CategoryController extends Controller
+class PaymentMethodController extends Controller
 {
     use MyHelper;
 
@@ -19,33 +19,33 @@ class CategoryController extends Controller
 
         try {
             if ($id) {
-                $Category = Category::where('id', $id)->first();
-                if ($Category->status == 0) {
+                $PaymentMethod = PaymentMethod::where('id', $id)->first();
+                if ($PaymentMethod->status == 0) {
                     return response()->json([
                         'code' => 409,
                         'status' => false,
-                        'msg' => 'Category ' . $Category->name . ' is not active',
-                        'data' => $Category,
+                        'msg' => 'Payment Method ' . $PaymentMethod->name . ' is not active',
+                        'data' => $PaymentMethod,
                         'error' => 1
                     ], 409);
                 }
 
-                if (empty($Category)) {
+                if (empty($PaymentMethod)) {
                     return response()->json([
                         'code' => 404,
                         'status' => false,
-                        'msg' => 'Category not found',
+                        'msg' => 'Payment Method not found',
                         'error' => 1
                     ], 404);
                 }
             } else {
-                $Category = Category::where('status', 10)->get();
+                $PaymentMethod = PaymentMethod::where('status', 10)->get();
 
-                if (count($Category) == 0) {
+                if (count($PaymentMethod) == 0) {
                     return response()->json([
                         'code' => 404,
                         'status' => false,
-                        'msg' => 'Category is empty',
+                        'msg' => 'Payment Method is empty',
                         'error' => 1
                     ], 404);
                 }
@@ -54,8 +54,8 @@ class CategoryController extends Controller
             return response()->json([
                 'code' => 200,
                 'status' => true,
-                'msg' => 'Category is already',
-                'data' => $Category,
+                'msg' => 'Payment Method is already',
+                'data' => $PaymentMethod,
                 'error' => 0
             ], 200);
         } catch (HttpException $exception) {
@@ -77,7 +77,8 @@ class CategoryController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'name' => 'required|string',
-            'icon' => 'required',
+            'photo' => 'required',
+            'payment_type' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -92,10 +93,12 @@ class CategoryController extends Controller
 
         try {
             $name = Str::upper(request()->name);
-            $icon = request()->icon;
+            $photo = request()->photo;
+            $payment_type = request()->payment_type;
+            $payment_type = Str::replace(" ", "_", Str::lower($payment_type));
             $slug = Str::replace(" ", "_", Str::lower(request()->name));
 
-            $master_photo = $this->uploadPhoto($icon, null, 'category');
+            $master_photo = $this->uploadPhoto($photo, null, 'payment_method');
             if ($master_photo == false) {
                 return response()->json([
                     'code' => 422,
@@ -105,7 +108,7 @@ class CategoryController extends Controller
                 ], 422);
             }
 
-            $check = Category::where('slug', $slug)->first();
+            $check = PaymentMethod::where('slug', $slug)->first();
             if ($check) {
                 return response()->json([
                     'code' => 409,
@@ -116,10 +119,12 @@ class CategoryController extends Controller
                 ], 409);
             }
 
-            $insert = Category::create([
+            $insert = PaymentMethod::create([
+                'code' => $this->randomNumber(),
                 'name' => $name,
-                'icon' => $master_photo,
+                'photo' => $master_photo,
                 'slug' => $slug,
+                'payment_type' => $payment_type,
                 'status' => 10,
                 'created_at' => now(),
                 'updated_at' => now()
@@ -128,7 +133,7 @@ class CategoryController extends Controller
             return response()->json([
                 'code' => 201,
                 'status' => true,
-                'msg' => 'Category created',
+                'msg' => 'Payment Method created',
                 'data' => $insert,
                 'error' => 0
             ], 201);
@@ -152,6 +157,7 @@ class CategoryController extends Controller
         $validator = Validator::make(request()->all(), [
             'id' => 'required|integer',
             'name' => 'required|string',
+            'payment_type' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -168,9 +174,11 @@ class CategoryController extends Controller
             $id = request()->id;
             $name = Str::upper(request()->name);
             $slug = Str::replace(" ", "_", Str::lower(request()->name));
+            $payment_type = request()->payment_type;
+            $payment_type = Str::replace(" ", "_", Str::lower($payment_type));
 
 
-            $check = Category::where('id', $id)->first();
+            $check = PaymentMethod::where('id', $id)->first();
             if (empty($check)) {
                 return response()->json([
                     'code' => 404,
@@ -183,13 +191,14 @@ class CategoryController extends Controller
             $check->update([
                 'name' => $name,
                 'slug' => $slug,
+                'payment_type' => $payment_type,
                 'updated_at' => now()
             ]);
 
             return response()->json([
                 'code' => 200,
                 'status' => true,
-                'msg' => 'Category updated',
+                'msg' => 'Payment Method updated',
                 'data' => $check,
                 'error' => 0
             ], 200);
@@ -212,7 +221,7 @@ class CategoryController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'id' => 'required|integer',
-            'icon' => 'required',
+            'photo' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -227,9 +236,9 @@ class CategoryController extends Controller
 
         try {
             $id = request()->id;
-            $icon = request()->icon;
+            $photo = request()->photo;
 
-            $check = Category::where('id', $id)->first();
+            $check = PaymentMethod::where('id', $id)->first();
             if (empty($check)) {
                 return response()->json([
                     'code' => 404,
@@ -239,7 +248,7 @@ class CategoryController extends Controller
                 ], 404);
             }
 
-            $master_photo = $this->uploadPhoto($icon, $check->id, 'category');
+            $master_photo = $this->uploadPhoto($photo, $check->id, 'payment_method');
             if ($master_photo == false) {
                 return response()->json([
                     'code' => 422,
@@ -250,14 +259,14 @@ class CategoryController extends Controller
             }
 
             $check->update([
-                'icon' => $master_photo,
+                'photo' => $master_photo,
                 'updated_at' => now()
             ]);
 
             return response()->json([
                 'code' => 200,
                 'status' => true,
-                'msg' => 'Category updated',
+                'msg' => 'Payment Method updated',
                 'data' => $check,
                 'error' => 0
             ], 200);
@@ -297,7 +306,7 @@ class CategoryController extends Controller
             $id = request()->id;
             $status = request()->status;
 
-            $check = Category::where('id', $id)->first();
+            $check = PaymentMethod::where('id', $id)->first();
             if (empty($check)) {
                 return response()->json([
                     'code' => 404,
@@ -315,7 +324,7 @@ class CategoryController extends Controller
             return response()->json([
                 'code' => 200,
                 'status' => true,
-                'msg' => 'Category updated',
+                'msg' => 'PaymentMethod updated',
                 'data' => $check,
                 'error' => 0
             ], 200);
@@ -353,7 +362,7 @@ class CategoryController extends Controller
         try {
             $id = request()->id;
 
-            $check = Category::where('id', $id)->first();
+            $check = PaymentMethod::where('id', $id)->first();
             if (empty($check)) {
                 return response()->json([
                     'code' => 404,

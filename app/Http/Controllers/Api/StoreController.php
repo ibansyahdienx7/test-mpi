@@ -23,12 +23,12 @@ class StoreController extends Controller
                 $Store = Store::where('id', $id)->first();
                 if ($Store->status == 0) {
                     return response()->json([
-                        'code' => 406,
+                        'code' => 409,
                         'status' => false,
                         'msg' => 'Store ' . $Store->name . ' is not active',
                         'data' => $Store,
                         'error' => 1
-                    ], 406);
+                    ], 409);
                 }
 
                 if (empty($Store)) {
@@ -115,12 +115,12 @@ class StoreController extends Controller
             $check = Store::where('slug', $slug)->where('user_id', $user_id)->first();
             if ($check) {
                 return response()->json([
-                    'code' => 419,
+                    'code' => 409,
                     'status' => false,
                     'msg' => 'Oopss... Data is available',
                     'data' => $check,
                     'error' => 1
-                ], 419);
+                ], 409);
             }
 
             $master_photo = $this->uploadPhoto($photo, null, 'store');

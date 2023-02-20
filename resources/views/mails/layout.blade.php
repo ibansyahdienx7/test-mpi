@@ -1,5 +1,4 @@
-<!DOCTYPE html
-    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
@@ -12,8 +11,8 @@
     <link href="{{ config('app.url') . '/assets/css/style-mail.css' }}" rel="stylesheet">
 
     <style type="text/css">
-        .btn-custom{
-            font-family: arial,'helvetica neue',helvetica,sans-serif;
+        .btn-custom {
+            font-family: arial, 'helvetica neue', helvetica, sans-serif;
             font-size: 18px;
             color: #fff !important;
             border-style: solid;
@@ -34,26 +33,26 @@
             cursor: pointer;
         }
 
-        .btn-custom:hover{
+        .btn-custom:hover {
             border-color: #af761c;
             background: #af761c;
             transition: all .3s ease-in-out;
         }
 
-        .img-custom{
-            width: 20%;
+        .img-custom {
+            width: 40%;
         }
 
-        @media(max-width: 992px)
-        {
-            .btn-custom{
+        @media(max-width: 992px) {
+            .btn-custom {
                 font-size: 16px;
             }
 
-            .img-custom{
-                width: 15%;
+            .img-custom {
+                width: 30%;
             }
         }
+
     </style>
 </head>
 
@@ -77,16 +76,14 @@
                     <!-- Email Body -->
                     <tr>
                         <td class="body" width="100%" cellpadding="0" cellspacing="0">
-                            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0"
-                                role="presentation">
+                            <table class="inner-body" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
                                 <!-- Body content -->
                                 <tr>
                                     <td class="content-cell">
 
                                         @yield('content_email')
 
-                                        <table align="center" class="subcopy" width="100%" cellpadding="0" cellspacing="0"
-                                            role="presentation">
+                                        <table align="center" class="subcopy" width="100%" cellpadding="0" cellspacing="0" role="presentation">
                                             <tr>
                                                 <td>
                                                     @yield('footer')
@@ -102,13 +99,12 @@
 
                     <tr>
                         <td>
-                            <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0"
-                                role="presentation">
+                            <table class="footer" align="center" width="570" cellpadding="0" cellspacing="0" role="presentation">
                                 <tr>
                                     <td class="content-cell" align="center">
                                         <p style="color: #202020">
                                             &copy; {{ date('Y') }}
-			                                Copyright <strong><span>{{ config('app.brand') }}</span></strong>. All Rights Reserved
+                                            Copyright <strong><span>{{ config('app.brand') }}</span></strong>. All Rights Reserved
                                         </p>
                                         <p style="color: #202020">
                                             v{{ Illuminate\Foundation\Application::VERSION }}

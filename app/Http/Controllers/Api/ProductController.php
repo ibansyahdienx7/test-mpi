@@ -552,12 +552,12 @@ class ProductController extends Controller
             $check = Product::where('slug', $slug)->first();
             if ($check) {
                 return response()->json([
-                    'code' => 419,
+                    'code' => 409,
                     'status' => false,
                     'msg' => 'Oopss... Data is available',
                     'data' => $check,
                     'error' => 1
-                ], 419);
+                ], 409);
             }
 
             if ($discount == 0 || $discount == NULL) {

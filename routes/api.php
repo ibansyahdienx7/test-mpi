@@ -3,8 +3,11 @@
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CartsController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PaymentMethodController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StoreController;
+use App\Http\Controllers\Api\SubscribeController;
+use App\Http\Controllers\Api\WishlistController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -85,3 +88,31 @@ Route::prefix('cart')->group(function () {
     Route::post('delete', [CartsController::class, 'delete']);
 });
 /* ====================================================== END CART ==================================================== */
+
+/* ====================================================== WISHLIST ==================================================== */
+Route::prefix('wishlist')->group(function () {
+    Route::get('list/{user_id}', [WishlistController::class, 'list']);
+    Route::post('store', [WishlistController::class, 'store']);
+    Route::post('delete', [WishlistController::class, 'delete']);
+});
+/* ====================================================== END WISHLIST ==================================================== */
+
+/* ====================================================== SUBSCRIBE ==================================================== */
+Route::prefix('subscribe')->group(function () {
+    Route::get('list', [SubscribeController::class, 'list']);
+    Route::post('store', [SubscribeController::class, 'store']);
+    Route::post('delete', [SubscribeController::class, 'delete']);
+});
+/* ====================================================== END SUBSCRIBE ==================================================== */
+
+/* ====================================================== PAYMENT METHOD ==================================================== */
+Route::prefix('payment')->group(function () {
+    Route::get('list', [PaymentMethodController::class, 'list']);
+    Route::get('list/{id}', [PaymentMethodController::class, 'list']);
+    Route::post('store', [PaymentMethodController::class, 'store']);
+    Route::post('update', [PaymentMethodController::class, 'update']);
+    Route::post('update-icon', [PaymentMethodController::class, 'updatePhoto']);
+    Route::post('update-status', [PaymentMethodController::class, 'updateStatus']);
+    Route::post('delete', [PaymentMethodController::class, 'delete']);
+});
+/* ====================================================== END PAYMENT METHOD ==================================================== */

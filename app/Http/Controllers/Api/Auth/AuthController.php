@@ -32,12 +32,12 @@ class AuthController extends Controller
                 $user = User::where('id', $id)->first();
                 if ($user->status == 0) {
                     return response()->json([
-                        'code' => 406,
+                        'code' => 409,
                         'status' => false,
                         'msg' => 'User ' . $user->name . ' is not active',
                         'data' => $user,
                         'error' => 1
-                    ], 406);
+                    ], 409);
                 }
 
                 if (empty($user)) {
@@ -112,12 +112,12 @@ class AuthController extends Controller
             $check = User::where('email', $email)->orWhere('slug', $slug)->first();
             if ($check) {
                 return response()->json([
-                    'code' => 419,
+                    'code' => 409,
                     'status' => false,
                     'msg' => 'Oopss... Data is available',
                     'data' => $check,
                     'error' => 1
-                ], 419);
+                ], 409);
             }
 
             $insert = User::create([
@@ -289,11 +289,11 @@ class AuthController extends Controller
 
             if (!Hash::check($old_password, $check->password)) {
                 return response()->json([
-                    'code' => 406,
+                    'code' => 409,
                     'status' => false,
                     'msg' => 'Oopss... Passwords don`t match',
                     'error' => 1
-                ], 406);
+                ], 409);
             }
 
             $check->update([

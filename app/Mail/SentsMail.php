@@ -29,6 +29,8 @@ class SentsMail extends Mailable
             return $this->subject($this->data['subject'])->view('mails.authmailer');
         } else if ($this->data['title_mail'] == 'product') {
             return $this->subject($this->data['subject'])->view('mails.sendmail');
+        } else if ($this->data['title_mail'] == 'subscribe') {
+            return $this->subject($this->data['subject'])->view('mails.sentmailsubs');
         }
     }
 }
