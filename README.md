@@ -61,4 +61,4 @@ And in the config/app file, change it with the following example: `'url' => env(
 
 ## DEMO 
 
-- [DEMO](https://documenter.getpostman.com/view/25222741/2s935sn29V).
+- [DEMO](https://github.com/ibansyahdienx7/test-mpi-fe.git).
