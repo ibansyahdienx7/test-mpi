@@ -17,13 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('pzn');
             $table->rememberToken();
             $table->foreignId('current_team_id')->nullable();
             $table->string('profile_photo_path', 2048)->nullable();
-            $table->string('slug');
-            $table->string('role');
-            $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
             $table->timestamps();
         });
     }
