@@ -57,7 +57,7 @@ And in the config/app file, change it with the following example: `'url' => env(
 
 ## TESTING 
 
-- [Run in Postman](https://documenter.getpostman.com/view/25222741/2s935sn29V).
+- [Run in Postman](https://documenter.getpostman.com/view/25222741/2s93CKPELc).
 
 ## DEMO 
 
