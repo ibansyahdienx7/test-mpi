@@ -27,7 +27,7 @@ return new class extends Migration
             [
                 'code' => '84849',
                 'name' => 'GO PAY',
-                'photo' => 'http://127.0.0.1:8001/assets/upload/payment_method/OFK5Y2-1676855538.png',
+                'photo' => url("") . '/assets/upload/payment_method/OFK5Y2-1676855538.png',
                 'slug' => 'go_pay',
                 'payment_type' => 'gopay',
                 'status' => 10,
@@ -37,7 +37,7 @@ return new class extends Migration
             [
                 'code' => '73455',
                 'name' => 'BANK BNI',
-                'photo' => 'http://127.0.0.1:8001/assets/upload/payment_method/EqVvVa-1676855622.png',
+                'photo' => url("") . '/assets/upload/payment_method/EqVvVa-1676855622.png',
                 'slug' => 'bank_bni',
                 'payment_type' => 'bank_transfer',
                 'status' => 10,
@@ -47,7 +47,7 @@ return new class extends Migration
             [
                 'code' => '63286',
                 'name' => 'BANK PERMATA',
-                'photo' => 'http://127.0.0.1:8001/assets/upload/payment_method/8pb9gg-1676855673.png',
+                'photo' => url("") . '/assets/upload/payment_method/8pb9gg-1676855673.png',
                 'slug' => 'bank_permata',
                 'payment_type' => 'permata',
                 'status' => 10,
@@ -57,7 +57,7 @@ return new class extends Migration
             [
                 'code' => '3551',
                 'name' => 'BANK MANDIRI',
-                'photo' => 'http://127.0.0.1:8001/assets/upload/payment_method/At7cIc-1676855862.png',
+                'photo' => url("") . '/assets/upload/payment_method/At7cIc-1676855862.png',
                 'slug' => 'bank_mandiri',
                 'payment_type' => 'echannel',
                 'status' => 10,
@@ -67,7 +67,7 @@ return new class extends Migration
             [
                 'code' => '34256',
                 'name' => 'BANK BRI',
-                'photo' => 'http://127.0.0.1:8001/assets/upload/payment_method/UExMBx-1676893200.png',
+                'photo' => url("") . '/assets/upload/payment_method/UExMBx-1676893200.png',
                 'slug' => 'bank_bri',
                 'payment_type' => 'bank_transfer',
                 'status' => 10,
