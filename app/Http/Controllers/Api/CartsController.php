@@ -492,7 +492,6 @@ class CartsController extends Controller
                 ], 404);
             }
 
-            $this->deletePhoto($check->icon);
             $check->delete();
 
             return response()->json([
