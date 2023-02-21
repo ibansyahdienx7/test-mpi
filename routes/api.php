@@ -82,15 +82,11 @@ Route::prefix('product')->group(function () {
 /* ====================================================== CART ==================================================== */
 Route::prefix('cart')->group(function () {
     Route::get('list/{user_id}', [CartsController::class, 'list']);
-    Route::get('sum/{user_id}', [CartsController::class, 'SumCart'])->withoutMiddleware("throttle:api")
-        ->middleware("throttle:300:1");
+    Route::get('sum/{user_id}', [CartsController::class, 'SumCart']);
     Route::post('store', [CartsController::class, 'store']);
-    Route::post('update', [CartsController::class, 'update'])->withoutMiddleware("throttle:api")
-        ->middleware("throttle:300:1");
-    Route::post('minus-cart', [CartsController::class, 'minusCart'])->withoutMiddleware("throttle:api")
-        ->middleware("throttle:300:1");
-    Route::post('plus-cart', [CartsController::class, 'plusCart'])->withoutMiddleware("throttle:api")
-        ->middleware("throttle:300:1");
+    Route::post('update', [CartsController::class, 'update']);
+    Route::post('minus-cart', [CartsController::class, 'minusCart']);
+    Route::post('plus-cart', [CartsController::class, 'plusCart']);
     Route::post('delete', [CartsController::class, 'delete']);
 });
 /* ====================================================== END CART ==================================================== */
@@ -98,8 +94,8 @@ Route::prefix('cart')->group(function () {
 /* ====================================================== WISHLIST ==================================================== */
 Route::prefix('wishlist')->group(function () {
     Route::get('list/{user_id}', [WishlistController::class, 'list']);
-    Route::post('store', [WishlistController::class, 'store'])->withoutMiddleware("throttle:api");
-    Route::post('delete', [WishlistController::class, 'delete'])->withoutMiddleware("throttle:api");
+    Route::post('store', [WishlistController::class, 'store']);
+    Route::post('delete', [WishlistController::class, 'delete']);
 });
 /* ====================================================== END WISHLIST ==================================================== */
 
