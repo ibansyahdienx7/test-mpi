@@ -82,11 +82,15 @@ Route::prefix('product')->group(function () {
 /* ====================================================== CART ==================================================== */
 Route::prefix('cart')->group(function () {
     Route::get('list/{user_id}', [CartsController::class, 'list']);
-    Route::get('sum/{user_id}', [CartsController::class, 'SumCart'])->withoutMiddleware("throttle:api");
+    Route::get('sum/{user_id}', [CartsController::class, 'SumCart'])->withoutMiddleware("throttle:api")
+        ->middleware("throttle:300:1");
     Route::post('store', [CartsController::class, 'store']);
-    Route::post('update', [CartsController::class, 'update'])->withoutMiddleware("throttle:api");
-    Route::post('minus-cart', [CartsController::class, 'minusCart'])->withoutMiddleware("throttle:api");
-    Route::post('plus-cart', [CartsController::class, 'plusCart'])->withoutMiddleware("throttle:api");
+    Route::post('update', [CartsController::class, 'update'])->withoutMiddleware("throttle:api")
+        ->middleware("throttle:300:1");
+    Route::post('minus-cart', [CartsController::class, 'minusCart'])->withoutMiddleware("throttle:api")
+        ->middleware("throttle:300:1");
+    Route::post('plus-cart', [CartsController::class, 'plusCart'])->withoutMiddleware("throttle:api")
+        ->middleware("throttle:300:1");
     Route::post('delete', [CartsController::class, 'delete']);
 });
 /* ====================================================== END CART ==================================================== */
