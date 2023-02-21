@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\AuthController;
+use App\Http\Controllers\Api\Callback\PaymentController;
 use App\Http\Controllers\Api\CartsController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PaymentMethodController;
@@ -134,3 +135,9 @@ Route::prefix('transaction')->group(function () {
     Route::post('store', [TransactionController::class, 'store']);
 });
 /* ====================================================== END TRANSACTION ==================================================== */
+
+/* ====================================================== CALLBACK ==================================================== */
+Route::prefix('callback')->group(function () {
+    Route::post('notif', [PaymentController::class, 'notif']);
+});
+/* ====================================================== END CALLBACK ==================================================== */
