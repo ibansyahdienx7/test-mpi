@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('user_id');
             $table->integer('id_transaction');
             $table->integer('id_product');
-            $table->integer('status')->comment('Status List : - 10 : Active, - 0 : Inactive');
+            $table->string('status');
             $table->nullableTimestamps();
         });
     }

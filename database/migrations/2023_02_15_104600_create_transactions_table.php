@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('year');
             $table->integer('month');
             $table->integer('day');
-            $table->integer('status');
+            $table->string('status');
             $table->string('status_transaction');
             $table->timestamp('expired_due')->nullable();
             $table->nullableTimestamps();

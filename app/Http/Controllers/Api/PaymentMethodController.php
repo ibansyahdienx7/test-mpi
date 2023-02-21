@@ -96,7 +96,7 @@ class PaymentMethodController extends Controller
             $photo = request()->photo;
             $payment_type = request()->payment_type;
             $payment_type = Str::replace(" ", "_", Str::lower($payment_type));
-            $slug = Str::replace(" ", "_", Str::lower(request()->name));
+            $slug = Str::replace(" ", "", Str::lower(Str::replace("bank", "", request()->name)));
 
             $master_photo = $this->uploadPhoto($photo, null, 'payment_method');
             if ($master_photo == false) {
@@ -173,9 +173,9 @@ class PaymentMethodController extends Controller
         try {
             $id = request()->id;
             $name = Str::upper(request()->name);
-            $slug = Str::replace(" ", "_", Str::lower(request()->name));
+            $slug = Str::replace(" ", "", Str::lower(Str::replace("bank", "", request()->name)));
             $payment_type = request()->payment_type;
-            $payment_type = Str::replace(" ", "_", Str::lower($payment_type));
+            $payment_type = Str::replace(" ", "", Str::lower($payment_type));
 
 
             $check = PaymentMethod::where('id', $id)->first();

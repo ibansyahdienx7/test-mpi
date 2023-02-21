@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('va_users', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('va');
-            $table->timestamp('expired_due')->nullable();
+            $table->string('va');
+            $table->string('bank');
             $table->nullableTimestamps();
         });
     }

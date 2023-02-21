@@ -519,8 +519,9 @@ trait MyHelper
     {
         $akses = [
             'dev_gopay'         => 'https://api.sandbox.midtrans.com/v2/pay/account',
-            'gopay'             => 'https://api.midtrans.com/v2/pay/account',
+            'gopay'             => 'https://api.sandbox.midtrans.com/v2/pay/account',
             'api_midtrans'      => 'https://api.sandbox.midtrans.com/v2/SANDBOX-G710367688-806/status',
+            'charge'            => 'https://api.sandbox.midtrans.com/v2/charge',
 
             // MIDTRANS DEV //
             'merchant_id_dev'       => 'G999254647',

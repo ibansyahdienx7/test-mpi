@@ -29,6 +29,8 @@ class SentsAdminMail extends Mailable
             return $this->subject($this->data['subject'])->view('mails.sentmailsubs');
         } else if ($this->data['title_mail'] == 'review') {
             return $this->subject($this->data['subject'])->view('mails.sendmail_review');
+        } else if ($this->data['title_mail'] == 'transaction') {
+            return $this->subject($this->data['subject'])->view('mails.sendmail_trx');
         }
     }
 }

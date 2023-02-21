@@ -8,7 +8,9 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\StoreController;
 use App\Http\Controllers\Api\SubscribeController;
+use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\WishlistController;
+use App\Models\Api\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -126,3 +128,9 @@ Route::prefix('review')->group(function () {
     Route::post('delete', [ReviewController::class, 'delete']);
 });
 /* ====================================================== END REVIEW ==================================================== */
+
+/* ====================================================== TRANSACTION ==================================================== */
+Route::prefix('transaction')->group(function () {
+    Route::post('store', [TransactionController::class, 'store']);
+});
+/* ====================================================== END TRANSACTION ==================================================== */
