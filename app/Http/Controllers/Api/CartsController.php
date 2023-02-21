@@ -109,6 +109,43 @@ class CartsController extends Controller
         }
     }
 
+    function SumCart($userID)
+    {
+        try {
+            $Cart = Cart::where('carts.user_id', $userID)
+                ->sum('amount_product');
+
+            if ($Cart == 0) {
+                return response()->json([
+                    'code' => 404,
+                    'status' => false,
+                    'msg' => 'Cart not found',
+                    'error' => 1
+                ], 404);
+            }
+
+            return response()->json([
+                'code' => 200,
+                'status' => true,
+                'msg' => 'Cart is already',
+                'data' => $Cart,
+                'error' => 0
+            ], 200);
+        } catch (HttpException $exception) {
+            return response()->json([
+                'code' => $exception->getstatusCode(),
+                'status' => false,
+                'msg' => $exception->getMessage(),
+                'error' => 1,
+                'error_detail' => [
+                    'code' => $exception->getStatusCode(),
+                    'headers' => $exception->getHeaders(),
+                    'line' => $exception->getLine(),
+                ]
+            ], $exception->getstatusCode());
+        }
+    }
+
     function store()
     {
         $validator = Validator::make(request()->all(), [
