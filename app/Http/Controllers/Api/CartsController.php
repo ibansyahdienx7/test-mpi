@@ -257,7 +257,7 @@ class CartsController extends Controller
 
             $check->update([
                 'amount_product' => $check->amount_product - $product->real_price,
-                'total_product' => $check->total_product - $value,
+                'total_product' => $value,
                 'updated_at' => now()
             ]);
 
@@ -334,8 +334,8 @@ class CartsController extends Controller
             }
 
             $check->update([
-                'amount_product' => $product->real_price + $check->amount_product * $value,
-                'total_product' => $check->total_product + $value,
+                'amount_product' => $product->real_price + $check->amount_product,
+                'total_product' => $value,
                 'updated_at' => now()
             ]);
 
@@ -365,8 +365,6 @@ class CartsController extends Controller
     {
         $validator = Validator::make(request()->all(), [
             'id' => 'required|integer',
-            'size' => 'required',
-            'variant' => 'required'
         ]);
 
         if ($validator->fails()) {
@@ -435,11 +433,17 @@ class CartsController extends Controller
                 }
             }
 
-            $check->update([
-                'size' => $size,
-                'variant' => $variant,
-                'updated_at' => now()
-            ]);
+            if ($size) {
+                $check->update([
+                    'size' => $size,
+                    'updated_at' => now()
+                ]);
+            } else if ($variant) {
+                $check->update([
+                    'variant' => $variant,
+                    'updated_at' => now()
+                ]);
+            }
 
             return response()->json([
                 'code' => 200,
