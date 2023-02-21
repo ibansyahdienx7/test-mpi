@@ -88,7 +88,7 @@ Route::prefix('cart')->group(function () {
     Route::post('minus-cart', [CartsController::class, 'minusCart'])->withoutMiddleware("throttle:api");
     Route::post('plus-cart', [CartsController::class, 'plusCart'])->withoutMiddleware("throttle:api");
     Route::post('delete', [CartsController::class, 'delete']);
-})->withoutMiddleware("throttle:api");
+});
 /* ====================================================== END CART ==================================================== */
 
 /* ====================================================== WISHLIST ==================================================== */
@@ -96,7 +96,7 @@ Route::prefix('wishlist')->group(function () {
     Route::get('list/{user_id}', [WishlistController::class, 'list']);
     Route::post('store', [WishlistController::class, 'store'])->withoutMiddleware("throttle:api");
     Route::post('delete', [WishlistController::class, 'delete'])->withoutMiddleware("throttle:api");
-})->withoutMiddleware("throttle:api");
+});
 /* ====================================================== END WISHLIST ==================================================== */
 
 /* ====================================================== SUBSCRIBE ==================================================== */
